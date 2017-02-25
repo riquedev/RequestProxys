@@ -34,6 +34,7 @@ Cada Proxy lhe renderá 6 requisições ( e só poderá fazer novas requisiçõe
 
 # Funcionalidade
 Basicamente está source lhe entregará o Proxy requisitado, não há muito o que dizer.
+
 **PS.:** o executável não aplicará o Proxy em sua máquina, ele apenas está lhe dando o Proxy e algumas informações do mesmo.
 
 # Atenção
