@@ -19,7 +19,7 @@ begin
   RequisicaoParams.Port         := 8000; //Esse port tem que ter a porta 8000 aberta
   RequisicaoDeProxy(RequisicaoParams);
   Proxy := RequisicaoDeProxy.BufferTratament;
-  ShowMessage('IP: '+Proxy.IP+#13+'PORT: '+Proxy.Port);
+  ShowMessage('IP: '+Proxy.IP+#13+'PORT: '+IntToStr(Proxy.Port));
  end;
  
 ```
