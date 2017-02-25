@@ -1,0 +1,235 @@
+{*******************************************************}
+{                                                       }
+{           Proxy Request | Gimme Proxy                 }
+{                                                       }
+{ Esta source foi disponibilizada com o intuito de      }
+{ ajudar a requisição de proxys para desenvolvedores    }
+{ que fazem uso do mesmo.                               }
+{ O site que disponibiliza os tokens é:                 }
+{       https://gimmeproxy.com                          }
+{ Caso não use token, você terá um limite de            }
+{ requisições.                                          }
+{ O serviço pode ser ampliado, desde que você pague     }
+{ pelo mesmo, com a API Key você terá algumas possibi-  }
+{ lidades a mais.                                       }
+{ Visite o site e conheça os serviços.                  }
+{ Desenvolvido por: https://github.com/riquedev         }
+{                                                       }
+{                                                       }
+{ Este obra está licenciado com uma Licença Creative    }
+{ Commons Atribuição 4.0 Internacional.                 }
+{ https://creativecommons.org/licenses/by/4.0/          }
+{*******************************************************}
+
+
+unit UPRequest;
+
+interface
+uses
+  SysUtils,IdHttp, XSuperObject, XSuperJSON, IniFiles;
+
+type
+  //Anônimo ou não Anônimo
+  TAnonymityType    = (atNotAnon,atAnon);
+  TProxyAnonymity   = set of TAnonymityType;
+
+  //Protocolo
+  TProxyProtocolType = (ppHttp,ppSocks4,ppSocks5);
+  TProxyProtocol      = set of TProxyProtocolType;
+
+  //Params para requisição
+  TProxyParams = record
+    ApiKey : string;
+    SupportGet : boolean;
+    SupportPost : boolean;
+    SupportCookies : boolean;
+    SupportReferer : Boolean;
+    SupportUserAgent : Boolean;
+    SupportHttps    : boolean;
+    AnonymityLevel  : TAnonymityType;
+    Protocol        : TProxyProtocolType;
+    Country         : String;
+    MaxCheckPeriod  : integer;
+    Port            : integer;
+    WebSiteAllowedProxys : string;
+    minSpeedKB           : double;
+    ExcludesCountry      : string;
+  end;
+
+  TProxyDetails = record
+    AcceptGet : boolean;
+    AcceptPost : Boolean;
+    AcceptCookies : Boolean;
+    AcceptReferer : boolean;
+    AcceptUserAgent : boolean;
+    AnonimityLevel : TAnonymityType;
+    SupportHttps  : boolean;
+    Protocol    : TProxyProtocolType;
+    IP          : string;
+    Port        : Integer;
+    Websites    : string;
+    Country     : string;
+    tsChecked   : LongInt;
+    Curl        : string;
+    ipPort      : string;
+    ptype       : string;
+    speed       : double;
+  end;
+  //Request Send
+  TProxyRequest = record
+      NotIsFirst : Boolean;
+      RequestUrl : string;
+      BufferResponse : string;
+    const
+      UrlRequest = 'http://gimmeproxy.com/api/getProxy?';
+
+    procedure RequestProxy(params : TProxyParams);
+    procedure AddParam(paramstr : string; paramvalue : string);
+    function BufferTratament : TProxyDetails;
+  end;
+implementation
+
+{ TProxyRequest }
+
+procedure TProxyRequest.AddParam(paramstr, paramvalue: string);
+begin
+  if( not NotIsFirst ) then
+    Self.RequestUrl := Self.RequestUrl+'&'+paramstr+'='+paramvalue
+  else begin
+    Self.RequestUrl := Self.UrlRequest+paramstr+'='+paramvalue;
+    NotIsFirst := true;
+  end;
+end;
+
+function TProxyRequest.BufferTratament: TProxyDetails;
+var
+  Json : ISuperObject;
+  Websites : ISuperObject;
+  I : Integer;
+begin
+  Json := SO(Self.BufferResponse);
+  Result.AcceptGet        := Json['get'].AsBoolean;
+  Result.AcceptPost       := Json['post'].AsBoolean;
+  Result.AcceptCookies    := Json['cookies'].AsBoolean;
+  Result.AcceptReferer    := Json['referer'].AsBoolean;
+  Result.AcceptUserAgent  := Json['user-agent'].AsBoolean;
+  Result.AnonimityLevel   := TAnonymityType(Json['anonymityLevel'].AsInteger);
+  Result.SupportHttps     := Json['supportsHttps'].AsBoolean;
+  if(Json['protocol'].AsString = 'http') then
+    Result.Protocol := ppHttp
+  else if(Json['protocol'].AsString = 'socks4') then
+    Result.Protocol := ppSocks4
+  else
+    Result.Protocol := ppSocks5;
+
+  Result.IP := Json['ip'].AsString;
+  Result.Port := Json['port'].AsInteger;
+  try
+    Result.Websites := Json['websites'].ToString(True);
+  except
+    Result.Websites := '';
+  end;
+  Result.Country    := Json['country'].AsString;
+  Result.tsChecked  := Json['tsChecked'].AsInteger;
+  Result.Curl       := Json['curl'].AsString;
+  Result.ipPort     := Json['ipPort'].AsString;
+  Result.ptype      := Json['type'].AsString;
+  Result.speed      := Json['speed'].AsFloat;
+
+
+end;
+
+procedure TProxyRequest.RequestProxy(params: TProxyParams);
+var
+  Handler : TIdHTTP;
+  Ini     : TiniFile;
+begin
+  with params do begin
+    if( trim(ApiKey) <> '') then
+      Self.AddParam('api_key',ApiKey);
+
+    if(SupportGet) then
+      Self.AddParam('get','true')
+    else
+      Self.AddParam('get','false');
+
+    if(SupportPost) then
+      Self.AddParam('post','true')
+    else
+      Self.AddParam('post','false');
+
+    if(SupportCookies) then
+      Self.AddParam('cookies','true')
+    else
+      Self.AddParam('cookies','false');
+
+    if(SupportReferer) then
+      Self.AddParam('referer','true')
+    else
+      Self.AddParam('referer','false');
+
+    if(SupportUserAgent) then
+      Self.AddParam('user-agent','true')
+    else
+      Self.AddParam('user-agent','false');
+
+    if(SupportHttps) then
+      Self.AddParam('supportsHttps','true')
+    else
+      Self.AddParam('supportsHttps','false');
+
+    if(AnonymityLevel = atAnon) then
+      Self.AddParam('anonymityLevel','1')
+    else if(AnonymityLevel = atNotAnon) then
+      Self.AddParam('anonymityLevel','0');
+
+    if (Protocol = ppHttp) then
+      Self.AddParam('protocol','http')
+    else if(Protocol = ppSocks4) then
+      Self.AddParam('protocol','socks4')
+    else if(Protocol = ppSocks5) then
+      Self.AddParam('protocol','socks5');
+
+    if (trim(Country) <> '') then
+      Self.AddParam('country',Country);
+
+    if(MaxCheckPeriod <> 0) then
+      Self.AddParam('maxCheckPeriod',IntToStr(MaxCheckPeriod));
+
+    if(trim(WebSiteAllowedProxys) <> '') then begin
+      if(Trim(ApiKey) <> '') then
+        Self.AddParam('websites',WebSiteAllowedProxys)
+      else
+        raise Exception.Create('WebSiteAllowedProxys necessita de ApiKey.');
+    end;
+
+    if(Port <> 0) then
+      Self.AddParam('port',IntToStr(Port));
+
+    if(minSpeedKB <> 0) then
+      Self.AddParam('minSpeed',FloatToStr(minSpeedKB));
+
+    if(trim(ExcludesCountry) <> '') then
+      Self.AddParam('notCountry',ExcludesCountry);
+
+    try
+      Handler := TIdHTTP.Create;
+      Self.BufferResponse := Self.RequestUrl;
+      with Handler do begin
+        { USO DE PROXY }
+        ProxyParams.ProxyServer := ProxyIP;
+        ProxyParams.ProxyPort   := ProxyPort;
+        { USO DE PROXY }
+        Self.BufferResponse := Get(Self.RequestUrl);
+      end;
+    finally
+      Handler.Disconnect;
+      FreeAndNil(Handler);
+    end;
+
+
+
+  end;
+end;
+
+end.

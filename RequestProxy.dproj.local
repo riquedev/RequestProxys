@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2017/01/24 11:32:28.000.043,=C:\Users\rique\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2017/01/27 21:05:40.000.399,=C:\Users\rique\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2017/01/30 20:11:49.000.033,=C:\Users\rique\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2017/02/01 22:24:34.000.083,=C:\Users\rique\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2017/02/25 09:17:06.000.657,=C:\Users\rique\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2017/02/25 09:19:47.000.814,C:\Users\rique\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.pas=C:\Users\rique\Desktop\Request Proxys\lib\src\UMain.pas</Transaction>
+    <Transaction>2017/02/25 09:19:47.000.814,C:\Users\rique\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.dfm=C:\Users\rique\Desktop\Request Proxys\lib\src\UMain.dfm</Transaction>
+    <Transaction>2017/02/25 10:56:22.000.348,=C:\Users\rique\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2017/02/25 10:56:33.000.608,C:\Users\rique\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.pas=C:\Users\rique\Desktop\Request Proxys\lib\src\UPRequest.pas</Transaction>
+    <Transaction>2017/02/25 12:57:56.000.920,=C:\Users\rique\Desktop\Request Proxys\lib\src\XSuperObject.pas</Transaction>
+    <Transaction>2017/02/25 12:57:56.000.887,=C:\Users\rique\Desktop\Request Proxys\lib\src\XSuperJSON.pas</Transaction>
+    <Transaction>2017/02/25 14:14:17.000.063,C:\Users\rique\OneDrive\Documentos\Embarcadero\Studio\Projects\Project1.dproj=C:\Users\rique\Desktop\Request Proxys\RequestProxy.dproj</Transaction>
+    <Transaction>2017/02/25 15:31:59.780,=C:\Users\rique\Desktop\Request Proxys\lib\src\UConfigs.pas</Transaction>
+    <Transaction>2017/02/25 15:33:57.167,=C:\Users\rique\Desktop\Request Proxys\lib\src\ABOUT.pas</Transaction>
+  </Transactions>
+</BorlandProject>
