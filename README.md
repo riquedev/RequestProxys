@@ -26,5 +26,15 @@ begin
 
 Não busquei dar mais explicações pois acredito que a source está fácil de ser entendida, qualquer dúvida basta entrar em contato.
 Se necessário melhorarei este **README** :smile:
+
+# Regras de uso
+Para o funcionamento desta source é útilizado o site: [gimmeproxy.com]: https://gimmeproxy.com, o serviço não é totalmente gratuito, você
+será limitado quanto as requisições, por isso é necessário o uso de proxy para requisitar novos proxys.
+Cada Proxy lhe renderá 6 requisições ( e só poderá fazer novas requisições após 20 horas ).
+
+# Funcionalidade
+Basicamente está source lhe entregará o Proxy requisitado, não há muito o que dizer.
+**PS.:** o executável não aplicará o Proxy em sua máquina, ele apenas está lhe dando o Proxy e algumas informações do mesmo.
+
 # Atenção
 Caso você decida utilizar o executável, você precisará de tudo dentro da pasta **./lib/**.
