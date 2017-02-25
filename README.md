@@ -26,3 +26,5 @@ begin
 
 Não busquei dar mais explicações pois acredito que a source está fácil de ser entendida, qualquer dúvida basta entrar em contato.
 Se necessário melhorarei este **README** :smile:
+# Atenção
+Caso você decida utilizar o executável, você precisará de tudo dentro da pasta **./lib/**.
