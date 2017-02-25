@@ -3,7 +3,7 @@
 
 # Como utilizar?
 Bem, você vai precisar do **sys.ini** encontrado em **lib/data/** e o **UPRequest.pas** em **lib/src/**, implemente o UPRequest em sua aplicação,
-é necessário que o caminho do sys.ini seja **./lib/data/sys.ini**, e seu app localizado em **./**, isso pode ser alterado no próxprio UPRequest.
+é necessário que o caminho do sys.ini seja **./lib/data/sys.ini**, e seu app localizado em **./**, isso pode ser alterado no próprio UPRequest.
 Tendo os dois em seu projeto, basta declarar algo como:
 
 ```pascal
